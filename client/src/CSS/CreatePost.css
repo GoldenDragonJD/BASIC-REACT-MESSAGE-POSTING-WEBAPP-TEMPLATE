@@ -1,0 +1,123 @@
+#Create-post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+}
+
+#Create-post-title {
+    margin-top: 50px;
+    text-align: center;
+}
+
+#Post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    justify-content: flex-start;
+    margin: 0 auto;
+    transition: var(--transition-time) ease-in-out;
+    height: 100%;
+}
+
+.Post-input {
+    all: unset;
+    width: 100%;
+    min-height: 50px;
+    font-size: 30px;
+    background-color: var(--input-background-color);
+    color: var(--input-text-color);
+    border-radius: 50px;
+    text-align: left;
+    padding-left: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    transition: background var(--transition-time) ease-in-out,
+        color var(--transition-time) ease-in-out;
+    box-sizing: border-box;
+}
+
+#Post-title-input {
+    font-weight: bold;
+}
+
+#Post-postMessage-input {
+    resize: none;
+    overflow: hidden;
+    text-wrap: normal;
+    word-wrap: break-word;
+    height: 600px;
+    padding-top: 10px;
+    font-size: 16px;
+    height: 400px;
+    box-sizing: border-box;
+    padding-right: 25px;
+    font-weight: 500;
+}
+
+#Post-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#Post-back {
+    all: unset;
+    cursor: pointer;
+    font-size: 20px;
+    background-color: var(--error-color);
+    border-radius: 50px;
+    padding: 10px;
+    font-weight: 700;
+    color: var(--input-text-color);
+    transition: background-color var(--transition-time) ease-in-out,
+        color var(--transition-time) ease-in-out;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#Post-submit {
+    all: unset;
+    cursor: pointer;
+    font-size: 20px;
+    background-color: var(--link-color);
+    border-radius: 50px;
+    padding: 10px;
+    font-weight: 700;
+    width: 150px;
+    color: var(--input-text-color);
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color var(--transition-time) ease-in-out,
+        color var(--transition-time) ease-in-out;
+}
+
+@media screen and (min-width: 800px) {
+    #Post-submit:hover {
+        background-color: var(--link-hover-color);
+    }
+
+    #Post-back:hover {
+        background-color: var(--link-secondary-hover-color);
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #Create-post {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    #Post-form {
+        width: 100%;
+    }
+
+    #Post-postMessage-input {
+        height: 400px;
+    }
+}

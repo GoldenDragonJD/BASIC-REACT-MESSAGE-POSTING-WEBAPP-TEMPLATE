@@ -1,0 +1,151 @@
+@import url(Colors.css);
+
+body {
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    transition: all var(--transition-time) ease-in-out;
+    cursor: default;
+}
+
+#Login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    justify-content: center;
+    margin: 0 auto;
+    transition: 1s ease-in-out;
+}
+
+.Form-title {
+    font-size: 60px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 0;
+}
+
+.Form-input-container {
+    display: flex;
+    width: 100%;
+    background-color: var(--input-background-color);
+    border-radius: 50px;
+    height: 50px;
+    align-items: center;
+    border: 5px solid var(--primary-text-color);
+    margin: 1rem 0;
+    transition: var(--transition-time) ease-in-out;
+}
+
+.Form-input-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin: 0;
+    margin-right: 1px;
+    margin-left: -1px;
+    border: 1px solid black;
+    transition: var(--transition-time) ease-in-out;
+}
+
+.Form-username-input,
+.Form-password-input {
+    all: unset;
+    color: var(--input-text-color);
+    font-size: 30px;
+    height: 100%;
+    width: 100%;
+    font-weight: 700;
+    margin-left: 10px;
+    cursor: text;
+}
+
+.Form-username-input:-webkit-autofill,
+.Form-password-input:-webkit-autofill {
+    all: unset;
+    color: var(--input-text-color);
+    font-size: 30px;
+    height: 100%;
+    width: 100%;
+    font-weight: 700;
+    border-radius: 50px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-left: 5px;
+    cursor: text;
+}
+
+#Login-submit {
+    all: unset;
+    padding: 0.5rem 1rem;
+    background-color: var(--link-color);
+    color: var(--link-text-color);
+    border-radius: 50px;
+    font-size: 50px;
+    cursor: pointer;
+    transition: var(--transition-time) ease-in-out;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+#Login-submit:hover {
+    background-color: var(--link-hover-color);
+}
+
+#Login-link {
+    color: var(--link-text-color);
+    background-color: var(--secondary-link-color);
+    padding: 20px;
+    text-decoration: none;
+    font-size: 40px;
+    border-radius: 50px;
+    margin-top: 1rem;
+    font-weight: 900;
+    transition: var(--transition-time) ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+#Login-link:hover {
+    background-color: var(--link-secondary-hover-color);
+}
+
+#Login-line-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 1rem;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.Login-line {
+    flex: 1;
+    height: 2px;
+    background-color: var(--primary-text-color);
+    transition: var(--transition-time) ease-in-out;
+}
+
+@media screen and (max-width: 800px) {
+    #Login-form {
+        width: 90%;
+    }
+
+    #Login-submit {
+        font-size: 40px;
+    }
+
+    #Login-link {
+        font-size: 20px;
+    }
+}

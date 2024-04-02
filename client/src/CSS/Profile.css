@@ -1,0 +1,40 @@
+#Profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+#Profile-title {
+    margin-top: 50px;
+    text-align: center;
+}
+
+#Profile-logout {
+    all: unset;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    transition: var(--transition-time) ease-in-out;
+    background-color: var(--secondary-link-color);
+    padding: 6px 4px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    margin-top: 10px;
+}
+
+.reply-username {
+    color: var(--secondary-link-color);
+    text-decoration: none;
+}
+
+@media screen and (min-width: 800px) {
+    #Profile-logout:hover {
+        background-color: var(--error-color);
+    }
+}
