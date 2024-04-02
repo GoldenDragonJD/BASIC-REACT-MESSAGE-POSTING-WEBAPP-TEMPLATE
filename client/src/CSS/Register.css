@@ -1,0 +1,84 @@
+#Register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
+    justify-content: center;
+    margin: 0 auto;
+    transition: 1s ease-in-out;
+    cursor: default;
+}
+
+@media screen and (min-width: 768px) {
+    #Register-form {
+        width: 600px;
+    }
+}
+
+#Register-sub-title {
+    font-size: 30px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 0;
+}
+
+#retype-password-input::placeholder {
+    font-size: 1.5rem;
+}
+
+#Register-submit {
+    all: unset;
+    margin-top: 1rem;
+    font-size: 50px;
+    text-transform: uppercase;
+    background-color: var(--secondary-link-color);
+    color: var(--link-text-color);
+    padding: 10px;
+    font-weight: 900;
+    border-radius: 50px;
+    transition: var(--transition-time) ease-in-out;
+    cursor: pointer;
+}
+
+#Register-submit:hover {
+    background-color: var(--link-secondary-hover-color);
+}
+
+#Register-link {
+    all: unset;
+    margin-top: 2rem;
+    font-size: 50px;
+    text-transform: uppercase;
+    color: var(--link-text-color);
+    background-color: var(--link-color);
+    padding: 10px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition-time) ease-in-out;
+}
+
+@media screen and (max-width: 800px) {
+    #Register-form {
+        width: 90%;
+    }
+    #Register-submit {
+        font-size: 30px;
+        margin-bottom: 0;
+        margin-top: 5px;
+    }
+
+    #Register-link {
+        font-size: 32px;
+        margin-top: 10px;
+    }
+}
+
+#Register-link:hover {
+    background-color: var(--link-hover-color);
+}

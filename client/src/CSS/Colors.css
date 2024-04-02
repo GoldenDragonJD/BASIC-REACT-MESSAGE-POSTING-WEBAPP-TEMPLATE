@@ -1,0 +1,59 @@
+:root {
+    --background-color-light: #ffffff;
+    --background-color-dark: #121212;
+    --background-color: var(--background-color-dark);
+
+    --primary-text-color-light: #000000;
+    --primary-text-color-dark: #ffffff;
+    --primary-text-color: var(--primary-text-color-dark);
+
+    --link-color-light: #2b81f3;
+    --link-color-dark: rgb(0, 255, 72);
+    --link-color: var(--link-color-dark);
+
+    --error-color-light: #ff0000;
+    --error-color-dark: #ff4000;
+    --error-color: var(--error-color-dark);
+
+    --link-hover-color-light: #38e1ff;
+    --link-hover-color-dark: #c7ffbd;
+    --link-hover-color: var(--link-hover-color-dark);
+
+    --secondary-text-color-light: #0774d3;
+    --secondary-text-color-dark: rgb(0, 255, 72);
+    --secondary-text-color: var(--secondary-text-color-dark);
+
+    --secondary-link-color-light: #d35507;
+    --secondary-link-color-dark: rgb(255, 242, 0);
+    --secondary-link-color: var(--secondary-link-color-dark);
+
+    --link-secondary-hover-color-light: #ffc400;
+    --link-secondary-hover-color-dark: #ffff86;
+    --link-secondary-hover-color: var(--link-secondary-hover-color-dark);
+
+    --link-text-color-light: #e5e5e5;
+    --link-text-color-dark: #222222;
+    --link-text-color: var(--link-text-color-dark);
+
+    --input-background-color-light: #000000;
+    --input-background-color-dark: #ffffff;
+    --input-background-color: var(--input-background-color-dark);
+
+    --input-text-color-light: #ffffff;
+    --input-text-color-dark: #000000;
+    --input-text-color: var(--input-text-color-dark);
+
+    --light-mode-background-color: black;
+    --dark-mode-background-color: white;
+    --mode-switch-color: var(--dark-mode-background-color);
+
+    --light-mode-background-color-hover: #004ac2;
+    --dark-mode-background-color-hover: #fff200;
+    --mode-switch-color-hover: var(--dark-mode-background-color);
+
+    --main-background-color-dark: #060606;
+    --main-background-color-light: #d7d7d7;
+    --main-background-color: var(--main-background-color-dark);
+
+    --transition-time: 0;
+}

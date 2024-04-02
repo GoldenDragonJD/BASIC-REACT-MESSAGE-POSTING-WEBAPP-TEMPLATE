@@ -1,0 +1,22 @@
+#Light-Dark-Button {
+    all: unset;
+    background-color: var(--background-color);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: fixed;
+    -webkit-tap-highlight-color: transparent;
+    transition: var(--transition-time) ease-in-out;
+    z-index: 1;
+}
+
+@media screen and (min-width: 800px) {
+    #Light-Dark-Button:hover {
+        background-color: var(--mode-switch-color-hover);
+        border-radius: 50px;
+    }
+}

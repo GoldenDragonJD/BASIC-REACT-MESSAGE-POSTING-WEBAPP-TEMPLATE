@@ -1,0 +1,49 @@
+#Comment-post-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 auto;
+}
+
+#Comment-post-title {
+    margin-top: 50px;
+    text-align: center;
+    
+}
+
+#Comment-container {
+    box-shadow: inset 0em 0em 2em -1em var(--secondary-link-color);
+    padding: 10px;
+    width: 97%;
+    margin: 0 auto;
+}
+
+#Comment-reply {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--input-text-color);
+    text-decoration: none;
+    transition: var(--transition-time) ease-in-out;
+    background-color: var(--secondary-link-color);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+}
+
+.Take-me-home {
+    background-color: var(--main-background-color);
+    color: var(--link-color);
+    padding: 10px;
+    border-radius: 50px;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+}
+
+@media screen and (max-width: 800px) {
+    #Comment-container {
+        width: 90%;
+    }
+}
