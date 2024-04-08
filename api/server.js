@@ -163,15 +163,17 @@ app.put("/createPost", async (req, res) => {
             username: parentPost.split(":")[0],
         });
 
-        const updatePostIndex = updateComments.posts.findIndex(
-            (post) => post.id == parentPost.split(":")[1]
-        );
-        if (updatePostIndex !== -1) {
-            updateComments.posts[updatePostIndex].comments += 1;
-            updateComments.markModified("posts");
-            await updateComments
-                .save()
-                .catch((error) => console.log("Error:", error.message));
+        if (!updateComments) {
+            const updatePostIndex = updateComments.posts.findIndex(
+                (post) => post.id == parentPost.split(":")[1]
+            );
+            if (updatePostIndex !== -1) {
+                updateComments.posts[updatePostIndex].comments += 1;
+                updateComments.markModified("posts");
+                await updateComments
+                    .save()
+                    .catch((error) => console.log("Error:", error.message));
+            }
         }
     }
 
