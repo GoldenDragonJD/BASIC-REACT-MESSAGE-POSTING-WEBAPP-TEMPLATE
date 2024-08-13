@@ -43,8 +43,7 @@ export default function Register() {
         })
             .then((response) => response.json())
             .then((data) => {
-                if (data.message !== "Account Created.")
-                    return alert(data.message);
+                if (data.message !== "Account Created." || data.message !== "Profanity Detected!") return alert(data.message);
 
                 navigate("/login");
                 alert("Account Created Successfully! Now Please Login.");
