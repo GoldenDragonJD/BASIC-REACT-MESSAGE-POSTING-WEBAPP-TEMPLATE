@@ -46,11 +46,16 @@ export default function CreatePost() {
         })
             .then((response) => response.json())
             .then((postData) => {
-                if (postData.message !== "Post Created" || postData.message !== "Profanity Detected!") {
+                if (postData.message !== "Post Created" && postData.message !== "Profanity Detected!") {
                     alert(postData.message);
                     document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     navigate("/login");
+                    return;
+                }
+
+                if (postData.message === "Profanity Detected!") {
+                    alert(postData.message);
                     return;
                 }
 
