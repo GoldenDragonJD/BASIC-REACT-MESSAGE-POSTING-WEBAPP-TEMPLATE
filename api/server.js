@@ -5,11 +5,16 @@ const bcrypt = require("bcrypt");
 const sha256 = require("sha256");
 const User = require("./models/TC-users");
 const helmet = require("helmet");
-const profanity = require("@2toad/profanity").profanity;
+const { RegExpMatcher, TextCensor, englishDataset, englishRecommendedTransformers } = require("obscenity");
 require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 4000;
+
+const matcher = new RegExpMatcher({
+    ...englishDataset.build(),
+    ...englishRecommendedTransformers,
+});
 
 mongoose
     .connect(process.env.DB_HOST)
@@ -53,7 +58,7 @@ app.post("/createAccount", async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    if (profanity.exists(username)) return res.json({ message: "Profanity Detected!" });
+    if (matcher.hasMatch(username)) return res.json({ message: "Profanity Detected!" });
 
     const user = await User.findOne({ username: username });
 
@@ -117,7 +122,7 @@ app.put("/createPost", async (req, res) => {
     const title = req.body.title;
     const postMessage = req.body.postMessage;
 
-    if (profanity.exists(title) || profanity.exists(postMessage)) return res.json({ message: "Profanity Detected!" });
+    if (matcher.hasMatch(title) || matcher.hasMatch(postMessage)) return res.json({ message: "Profanity Detected!" });
 
     if (!(await authAccount(username, token))) {
         console.log("auth failed");
