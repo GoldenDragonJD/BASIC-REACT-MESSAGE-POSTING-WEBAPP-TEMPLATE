@@ -117,7 +117,7 @@ app.put("/createPost", async (req, res) => {
     const title = req.body.title;
     const postMessage = req.body.postMessage;
 
-    if (profanity.exists(title) || profanity.exists(postMessage)) return res.json({ message: "Profanity Detected!" });
+    // if (profanity.exists(title) || profanity.exists(postMessage)) return res.json({ message: "Profanity Detected!" });
 
     if (!(await authAccount(username, token))) {
         console.log("auth failed");
