@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const sha256 = require("sha256");
 const User = require("./models/TC-users");
 const helmet = require("helmet");
+import { profanity } from "@2toad/profanity";
 require("dotenv").config();
 
 const app = express();
@@ -51,6 +52,8 @@ function getFormattedDate() {
 app.post("/createAccount", async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
+
+    if (profanity.exists(username)) return res.json({ message: "Profanity Detected!" });
 
     const user = await User.findOne({ username: username });
 
@@ -113,6 +116,8 @@ app.put("/createPost", async (req, res) => {
     const parentPost = req.body.parentPost;
     const title = req.body.title;
     const postMessage = req.body.postMessage;
+
+    if (profanity.exists(title) || profanity.exists(postMessage)) return res.json({ message: "Profanity Detected!" });
 
     if (!(await authAccount(username, token))) {
         console.log("auth failed");
