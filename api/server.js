@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const app = express();
 
-// const hostingIP = process.env.HOST_IP;
+const hostingIP = process.env.HOST_IP;
 
 mongoose
     .connect(process.env.DB_HOST)
@@ -164,11 +164,15 @@ app.put("/createPost", async (req, res) => {
         });
 
         if (updateComments) {
-            const updatePostIndex = updateComments.posts.findIndex((post) => post.id == parentPost.split(":")[1]);
+            const updatePostIndex = updateComments.posts.findIndex(
+                (post) => post.id == parentPost.split(":")[1]
+            );
             if (updatePostIndex !== -1) {
                 updateComments.posts[updatePostIndex].comments += 1;
                 updateComments.markModified("posts");
-                await updateComments.save().catch((error) => console.log("Error:", error.message));
+                await updateComments
+                    .save()
+                    .catch((error) => console.log("Error:", error.message));
             }
         }
     }
@@ -396,6 +400,6 @@ app.get("/", (req, res) => {
     res.json({ message: "Backend Is working!!!" });
 });
 
-app.listen(3001, () => {
+app.listen(3001, hostingIP, () => {
     console.log("Started Listening on Port 3001.");
 });
