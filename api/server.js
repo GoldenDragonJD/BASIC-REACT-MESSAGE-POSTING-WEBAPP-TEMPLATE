@@ -8,6 +8,7 @@ const helmet = require("helmet");
 require("dotenv").config();
 
 const app = express();
+const port = process.env.PORT || 4000;
 
 mongoose
     .connect(process.env.DB_HOST)
@@ -40,20 +41,7 @@ function getFormattedDate() {
     const date = new Date();
     const year = date.getFullYear();
     const day = date.getDate();
-    const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     const month = months[date.getMonth()];
 
@@ -97,8 +85,7 @@ app.post("/login", async (req, res) => {
 
     if (!user) return res.json({ message: "Username not Found!" });
 
-    if (!(await bcrypt.compare(password, user.password)))
-        return res.json({ message: "Incorrect Password" });
+    if (!(await bcrypt.compare(password, user.password))) return res.json({ message: "Incorrect Password" });
 
     const createdToken = await createToken(user.password);
 
@@ -113,8 +100,7 @@ app.delete("/deleteAccount", async (req, res) => {
     const username = req.body.username;
     const token = req.body.token;
 
-    if (await !authAccount(username, token))
-        return res.json({ message: "Authentication Failed." });
+    if (await !authAccount(username, token)) return res.json({ message: "Authentication Failed." });
 
     const user = await User.findOneAndDelete({ username: username });
     console.log("This Account Has Been Deleted:", user);
@@ -152,11 +138,7 @@ app.put("/createPost", async (req, res) => {
         exactTime: Date.now(),
     };
 
-    const updatedUser = await User.findOneAndUpdate(
-        { username: username },
-        { $push: { posts: newPost }, $set: { lastPostId: postId } },
-        { new: true }
-    );
+    const updatedUser = await User.findOneAndUpdate({ username: username }, { $push: { posts: newPost }, $set: { lastPostId: postId } }, { new: true });
 
     if (parentPost) {
         const updateComments = await User.findOne({
@@ -164,15 +146,11 @@ app.put("/createPost", async (req, res) => {
         });
 
         if (updateComments) {
-            const updatePostIndex = updateComments.posts.findIndex(
-                (post) => post.id == parentPost.split(":")[1]
-            );
+            const updatePostIndex = updateComments.posts.findIndex((post) => post.id == parentPost.split(":")[1]);
             if (updatePostIndex !== -1) {
                 updateComments.posts[updatePostIndex].comments += 1;
                 updateComments.markModified("posts");
-                await updateComments
-                    .save()
-                    .catch((error) => console.log("Error:", error.message));
+                await updateComments.save().catch((error) => console.log("Error:", error.message));
             }
         }
     }
@@ -185,16 +163,11 @@ app.delete("/removePost", async (req, res) => {
     const token = req.body.token;
     const postId = req.body.postId;
 
-    if (!(await authAccount(username, token)))
-        return res.json({ message: "Authentication Failed." });
+    if (!(await authAccount(username, token))) return res.json({ message: "Authentication Failed." });
 
     const user = await User.findOne({ username: username });
     const postIndex = user.posts.findIndex((post) => post.id == postId);
-    const updatedUser = await User.findOneAndUpdate(
-        { username: username },
-        { $pull: { posts: user.posts[postIndex] } },
-        { new: true }
-    );
+    const updatedUser = await User.findOneAndUpdate({ username: username }, { $pull: { posts: user.posts[postIndex] } }, { new: true });
 
     res.json({ message: "Post Removed" });
 });
@@ -205,25 +178,19 @@ app.put("/addRemoveLike/:account/:postID", async (req, res) => {
     const username = req.body.username;
     const token = req.body.token;
 
-    if (!account)
-        return res.json({ message: "Missing Important Information." });
+    if (!account) return res.json({ message: "Missing Important Information." });
     if (!postId) return res.json({ message: "Missing Important Information." });
-    if (!(await authAccount(username, token)))
-        return res.json({ message: "Authentication Failed." });
+    if (!(await authAccount(username, token))) return res.json({ message: "Authentication Failed." });
 
     const targetUser = await User.findOne({ username: account });
     if (!targetUser) return res.json({ message: "Couldn't Find Target User." });
-    const targetPostIndex = targetUser.posts.findIndex(
-        (post) => post.id == postId
-    );
+    const targetPostIndex = targetUser.posts.findIndex((post) => post.id == postId);
 
-    if (!targetUser.posts[targetPostIndex])
-        return res.json({ message: "Target user Post couldn't be found" });
+    if (!targetUser.posts[targetPostIndex]) return res.json({ message: "Target user Post couldn't be found" });
     if (!targetUser.posts[targetPostIndex].likes.includes(username)) {
         targetUser.posts[targetPostIndex].likes.push(username);
     } else {
-        const likeIndex =
-            targetUser.posts[targetPostIndex].likes.indexOf(username);
+        const likeIndex = targetUser.posts[targetPostIndex].likes.indexOf(username);
         targetUser.posts[targetPostIndex].likes.splice(likeIndex, 1);
     }
 
@@ -248,18 +215,10 @@ app.get("/getAllAccounts", async (req, res) => {
 
     const user = await User.findOne({ username: username });
 
-    if (!user)
-        return res
-            .status(403)
-            .json({ message: "No User: Authentication Failed!" });
+    if (!user) return res.status(403).json({ message: "No User: Authentication Failed!" });
 
-    if (
-        !(await bcrypt.compare(password, user.password)) ||
-        username !== "admin"
-    )
-        return res
-            .status(403)
-            .json({ message: "Password Failed: Authentication Failed!" });
+    if (!(await bcrypt.compare(password, user.password)) || username !== "admin")
+        return res.status(403).json({ message: "Password Failed: Authentication Failed!" });
 
     const accounts = await User.find();
     return res.json(accounts);
@@ -271,18 +230,13 @@ app.post("/getAllPosts/:page", async (req, res) => {
     const username = req.body.username;
     const token = req.body.token;
 
-    if (!(await authAccount(username, token)))
-        return res.json({ message: "Authentication Failed." });
+    if (!(await authAccount(username, token))) return res.json({ message: "Authentication Failed." });
 
     const shownPosts = [];
 
     users.sort((a, b) => {
-        const aLastPostTime = new Date(
-            a.posts[a.posts.length - 1]?.exactTime || 0
-        );
-        const bLastPostTime = new Date(
-            b.posts[b.posts.length - 1]?.exactTime || 0
-        );
+        const aLastPostTime = new Date(a.posts[a.posts.length - 1]?.exactTime || 0);
+        const bLastPostTime = new Date(b.posts[b.posts.length - 1]?.exactTime || 0);
         return bLastPostTime - aLastPostTime;
     });
 
@@ -294,9 +248,7 @@ app.post("/getAllPosts/:page", async (req, res) => {
                 if (!user.posts[i].views.includes(username)) {
                     user.posts[i].views.push(username);
                     user.markModified("posts");
-                    await user
-                        .save()
-                        .catch((error) => console.log({ message: error }));
+                    await user.save().catch((error) => console.log({ message: error }));
                 }
             }
 
@@ -320,29 +272,20 @@ app.post("/getAllComments/:page", async (req, res) => {
     const token = req.body.token;
     const page = Number(req.params.page);
 
-    if (!(await authAccount(username, token)))
-        return res.json({ message: "Authentication Failed." });
+    if (!(await authAccount(username, token))) return res.json({ message: "Authentication Failed." });
 
     const shownComments = [];
     let post;
 
     users.sort((a, b) => {
-        const aLastPostTime = new Date(
-            a.posts[a.posts.length - 1]?.exactTime || 0
-        );
-        const bLastPostTime = new Date(
-            b.posts[b.posts.length - 1]?.exactTime || 0
-        );
+        const aLastPostTime = new Date(a.posts[a.posts.length - 1]?.exactTime || 0);
+        const bLastPostTime = new Date(b.posts[b.posts.length - 1]?.exactTime || 0);
         return bLastPostTime - aLastPostTime;
     });
 
     for (const user of users) {
         for (const po of user.posts) {
-            if (
-                po.id == targetPost.split(":")[1] &&
-                po.username === targetPost.split(":")[0]
-            )
-                post = po;
+            if (po.id == targetPost.split(":")[1] && po.username === targetPost.split(":")[0]) post = po;
         }
 
         for (let i = page - 1; i < 10 * page; i++) {
@@ -352,9 +295,7 @@ app.post("/getAllComments/:page", async (req, res) => {
                 if (!user.posts[i].views.includes(username)) {
                     user.posts[i].views.push(username);
                     user.markModified("posts");
-                    await user
-                        .save()
-                        .catch((error) => console.log({ message: error }));
+                    await user.save().catch((error) => console.log({ message: error }));
                 }
             }
 
@@ -380,8 +321,7 @@ app.post("/getProfile", async (req, res) => {
     const profile = req.body.profile;
     const page = Number(req.body.page);
 
-    if (!(await authAccount(username, token)))
-        return res.json({ message: "Authentication Failed." });
+    if (!(await authAccount(username, token))) return res.json({ message: "Authentication Failed." });
 
     let found = false;
 
@@ -400,6 +340,6 @@ app.get("/", (req, res) => {
     res.json({ message: "Backend Is working!!!" });
 });
 
-app.listen(3001, () => {
-    console.log("Started Listening on Port 3001.");
+app.listen(port, () => {
+    console.log("Started Listening.");
 });
