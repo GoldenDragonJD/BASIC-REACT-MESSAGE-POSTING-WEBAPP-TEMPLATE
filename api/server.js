@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
+// const cors = require("cors");
 const bcrypt = require("bcrypt");
 const sha256 = require("sha256");
 const User = require("./models/TC-users");
@@ -21,7 +21,7 @@ mongoose
     });
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 app.use(helmet());
 
 async function createToken(password) {
