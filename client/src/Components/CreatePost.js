@@ -4,10 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import "../CSS/CreatePost.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faCircleChevronLeft,
-    faSquareCheck,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircleChevronLeft, faSquareCheck } from "@fortawesome/free-solid-svg-icons";
 
 const hostIp = process.env.REACT_APP_HOST_IP;
 
@@ -40,7 +37,7 @@ export default function CreatePost() {
             method: "PUT",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
-                parentPost: `${commentUsernameVar}:${commentIdVar}`,
+                parentPost: commentUsernameVar ? `${commentUsernameVar}:${commentIdVar}` : null,
                 username: username,
                 token: token,
                 title: title,
@@ -51,10 +48,8 @@ export default function CreatePost() {
             .then((postData) => {
                 if (postData.message !== "Post Created") {
                     alert(postData.message);
-                    document.cookie =
-                        "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                    document.cookie =
-                        "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                     navigate("/login");
                     return;
                 }
@@ -69,20 +64,13 @@ export default function CreatePost() {
         setCommentIdVar(commentId);
         getCookies();
 
-        console.log(commentUsernameVar)
+        console.log(commentUsernameVar);
 
         if (username === "") return;
         if (token === "") return;
         if (commentUsername === "") return;
         if (commentId === "") return;
-    }, [
-        username,
-        token,
-        commentUsernameVar,
-        commentIdVar,
-        commentUsername,
-        commentId,
-    ]);
+    }, [username, token, commentUsernameVar, commentIdVar, commentUsername, commentId]);
 
     return (
         <div id="Create-post">
@@ -112,12 +100,7 @@ export default function CreatePost() {
                 />
                 <div id="Post-button-container">
                     <Link to="/home" id="Post-back">
-                        <FontAwesomeIcon
-                            icon={faCircleChevronLeft}
-                            size="2xl"
-                            id="Post-icon"
-                        />{" "}
-                        BACK
+                        <FontAwesomeIcon icon={faCircleChevronLeft} size="2xl" id="Post-icon" /> BACK
                     </Link>
                     <button type="submit" id="Post-submit">
                         POST <FontAwesomeIcon icon={faSquareCheck} size="2xl" />
