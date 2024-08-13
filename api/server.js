@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const sha256 = require("sha256");
 const User = require("./models/TC-users");
 const helmet = require("helmet");
-import { profanity } from "@2toad/profanity";
+const profanity = require("@2toad/profanity");
 require("dotenv").config();
 
 const app = express();
