@@ -4,6 +4,7 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const sha256 = require("sha256");
 const User = require("./models/TC-users");
+const helmet = require("helmet");
 require("dotenv").config();
 
 const app = express();
@@ -19,6 +20,7 @@ mongoose
 
 app.use(express.json());
 app.use(cors());
+app.use(helmet());
 
 async function createToken(password) {
     const token = password + process.env.TOKEN_PASS;
