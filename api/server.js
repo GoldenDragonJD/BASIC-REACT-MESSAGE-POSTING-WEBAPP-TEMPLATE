@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const sha256 = require("sha256");
 const User = require("./models/TC-users");
 const helmet = require("helmet");
-const profanity = require("@2toad/profanity");
+const profanity = require("@2toad/profanity").profanity;
 require("dotenv").config();
 
 const app = express();
@@ -117,7 +117,7 @@ app.put("/createPost", async (req, res) => {
     const title = req.body.title;
     const postMessage = req.body.postMessage;
 
-    // if (profanity.exists(title) || profanity.exists(postMessage)) return res.json({ message: "Profanity Detected!" });
+    if (profanity.exists(title) || profanity.exists(postMessage)) return res.json({ message: "Profanity Detected!" });
 
     if (!(await authAccount(username, token))) {
         console.log("auth failed");
