@@ -8,8 +8,6 @@ require("dotenv").config();
 
 const app = express();
 
-const hostingIP = process.env.HOST_IP;
-
 mongoose
     .connect(process.env.DB_HOST)
     .then(() => {
@@ -400,6 +398,6 @@ app.get("/", (req, res) => {
     res.json({ message: "Backend Is working!!!" });
 });
 
-app.listen(3001, hostingIP, () => {
+app.listen(3001, () => {
     console.log("Started Listening on Port 3001.");
 });
